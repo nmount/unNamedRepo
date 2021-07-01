@@ -76,7 +76,7 @@ export const editOneTweet = (tweetId, content) => async (dispatch) => {
     if (res.ok) {
         const data = await res.json();
 
-        dispatch(editTweet(data));
+        dispatch(editTweet(data.tweet));
         return data;
     }
 }
@@ -108,8 +108,8 @@ export default function tweetReducer(state = initialState, action) {
         case EDIT_TWEET: {
             const newState = {...state};
             const id = action.tweet.id;
-            const newContent = action.tweet.content;
-            newState[id]['content'] = newContent;
+            const newContent = newState[id];
+            newState[id] = {...newContent, 'content':action.tweet.content};
             return newState;
         }
         default:

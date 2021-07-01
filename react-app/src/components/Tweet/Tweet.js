@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOneTweet, getTweetsByUserId } from "../../store/tweet";
+import { deleteOneTweet, editOneTweet, getTweetsByUserId } from "../../store/tweet";
 import "./tweet.css";
 import UserTweetForm from "../UserTweet";
 
@@ -9,10 +9,13 @@ export default function Tweet({tweet}) {
     const [edit, setEdit] = useState(false);
     const loggedInUser = useSelector((state) => state.session.user);
 
+    const tweetContent = useSelector((state) => state.tweetReducer.content)
+
     const dispatch = useDispatch();
 
-    const onEdit = () => {
+    const onEdit = (tweet) => {
         setEdit((prevState) => !prevState)
+        dispatch(editOneTweet(tweet.id, tweetContent))
     };
 
     const onDelete = async (tweet) => {
