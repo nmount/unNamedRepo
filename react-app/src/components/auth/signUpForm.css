@@ -1,0 +1,20 @@
+.massOfSignup {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px;
+}
+
+.theSignUpForm { 
+    border: solid black;    
+    padding: 20px;
+    border-radius: 15px;
+}
+
+
+.YESYES:hover{
+    background-color: rgb(41, 25, 4, 0.3);
+    transition-property: background-color;
+    transition-duration: 0.3s;
+}

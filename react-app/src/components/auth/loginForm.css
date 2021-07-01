@@ -1,0 +1,23 @@
+.parentForm{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.formItself{
+    border: solid black;    
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.formFill{
+    display: flex;
+    flex-direction: row;
+}
+
+.loginBtn:hover{
+    background-color: rgb(41, 25, 4, 0.3);
+    transition-property: background-color;
+    transition-duration: 0.3s;
+}
