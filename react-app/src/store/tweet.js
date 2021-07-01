@@ -1,6 +1,7 @@
 const GET_TWEETS = "tweet/GET_TWEETS";
 const DELETE_TWEET = "tweet/DELETE_TWEET";
 const POST_TWEET = "tweet/POST_TWEET";
+const EDIT_TWEET = "tweet/EDIT_TWEET";
 
 const getTweets = (tweets) => ({
     type: GET_TWEETS,
@@ -14,6 +15,11 @@ const postTweet = (tweet) => ({
 
 const deleteTweet = (tweet) => ({
     type: DELETE_TWEET,
+    tweet
+});
+
+const editTweet = (tweet) => ({
+    type: EDIT_TWEET,
     tweet
 });
 
@@ -58,6 +64,25 @@ export const deleteOneTweet = (tweetId) => async (dispatch) => {
     }
 };
 
+export const editOneTweet = (tweetId, content) => async (dispatch) => {
+    const res = await fetch(`/api/tweets/${tweetId}`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(content)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+
+        dispatch(editTweet(data));
+        return data;
+    }
+}
+
+
+
 const initialState = {};
 
 export default function tweetReducer(state = initialState, action) {
@@ -78,6 +103,13 @@ export default function tweetReducer(state = initialState, action) {
         case DELETE_TWEET: {
             const newState = {...state};
             delete newState[action.tweet];
+            return newState;
+        }
+        case EDIT_TWEET: {
+            const newState = {...state};
+            const id = action.tweet.id;
+            const newContent = action.tweet.content;
+            newState[id]['content'] = newContent;
             return newState;
         }
         default:

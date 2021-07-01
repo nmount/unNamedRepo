@@ -13,11 +13,13 @@ function TweetShow() {
     dispatch(getAllTweets());
   }, [dispatch]);
 
-  const tweetComponents = Object.values(stateTweets).map((tweet) => {
+  const tweetComponents = Object.values(stateTweets)?.map((tweet) => {
     return (
       <div>
         {console.log('TWEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET', tweet)}
         <Tweet key={tweet.id} tweet={tweet} />
+        <p>{tweet.title}</p>
+        <p>{tweet.content}</p>
       </div>
     );
   });
@@ -25,7 +27,8 @@ function TweetShow() {
 
   return (
     <>
-      <h1>check out what our users are up to!</h1>
+      <h1>Welcome to the tweets show page</h1>
+      {console.log('tweet components\n\n', tweetComponents)}
       <div className="tweet-container">{tweetComponents}</div>
     </>
   );

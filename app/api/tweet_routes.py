@@ -38,3 +38,15 @@ def delete_tweet(id):
     db.session.delete(tweet)
     db.session.commit()
     return {'message': 'success'}
+
+
+
+@tweet_routes.route("/<int:id>", methods=["PATCH"])
+@login_required
+def edit_tweet(id):
+    print("Made it into the edit_tweet route")
+    tweet = Tweet.query.get(id)
+    request_body = request.get_json()
+    tweet.content = request_body
+    db.session.commit()
+    return {'tweet': tweet.to_dict()}
